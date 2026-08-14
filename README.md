@@ -1,3 +1,4 @@
+markdown
 # Northstar Support Desk
 
 A self-serve dashboard MVP for Northstar Retail Co. Customers (or support agents)
@@ -5,25 +6,23 @@ check **order status** and **stock availability** without opening a ticket.
 
 ## Project structure
 
-```
 northstar-dashboard/
-├── index.html          # Dashboard shell (both lookup modules)
+├── index.html # Dashboard shell (both lookup modules)
 ├── css/
-│   └── styles.css      # Design tokens + layout
+│ └── styles.css # Design tokens + layout
 ├── js/
-│   └── app.js           # Form handling + data lookup + rendering
+│ └── app.js # Form handling + data lookup + rendering
 ├── data/
-│   ├── orders.json      # Sample order records (placeholder — Alex to expand)
-│   └── products.json    # Sample product/stock records (placeholder — Alex to expand)
+│ ├── orders.json # Sample order records (placeholder — Alex to expand)
+│ └── products.json # Sample product/stock records (placeholder — Alex to expand)
 └── README.md
-```
+
 
 No build step, no dependencies. Open `index.html` in a browser, or run a
 local server:
 
-```
 python3 -m http.server 8000
-```
+
 
 then visit `http://localhost:8000`.
 
@@ -31,9 +30,8 @@ then visit `http://localhost:8000`.
 
 Every commit must follow:
 
-```
 <type>: <what changed> - <why it matters>
-```
+
 
 Examples:
 - `feat: add order status lookup form - covers ticket type 1 requirement`
