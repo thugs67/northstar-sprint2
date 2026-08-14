@@ -104,10 +104,18 @@ function renderOrderResult(order) {
 // --- Stock availability ----------------------------------------------
 
 function findProduct(query) {
-  const q = query.trim().toLowerCase();
-  return products.find(
-    p => p.name.toLowerCase().includes(q) || p.sku.toLowerCase() === q
-  );
+  const normalizedQuery = query.trim().toLowerCase();
+
+  if (!normalizedQuery) {
+    return null;
+  }
+
+  return products.find(product => {
+    const sku = product.sku.trim().toLowerCase();
+    const name = product.name.trim().toLowerCase();
+
+    return sku === normalizedQuery || name.includes(normalizedQuery);
+  }) || null;
 }
 
 function renderStockResult(product) {
@@ -115,18 +123,51 @@ function renderStockResult(product) {
   el.hidden = false;
 
   if (!product) {
-    el.innerHTML = `<p class="stub--not-found">No product matched that name or SKU. Try the exact SKU, or contact an agent.</p>`;
+    el.innerHTML = `
+      <p class="stub--not-found">
+        No product matched that name or SKU.
+        Try searching by product name or exact SKU.
+      </p>
+    `;
     return;
   }
 
   const inStock = product.stock > 0;
-  const badgeClass = inStock ? 'badge--ok' : 'badge--wait';
-  const badgeText = inStock ? `In stock (${product.stock})` : 'Out of stock';
+
+  const badgeClass = inStock
+    ? 'badge--ok'
+    : 'badge--wait';
+
+  const badgeText = inStock
+    ? `In stock (${product.stock} available)`
+    : 'Out of stock';
+
+  const message = inStock
+    ? 'This product is currently available.'
+    : 'This product is currently unavailable.';
 
   el.innerHTML = `
-    <div class="stub__row"><span class="stub__label">Product</span><span class="stub__value">${product.name}</span></div>
-    <div class="stub__row"><span class="stub__label">SKU</span><span class="stub__value">${product.sku}</span></div>
-    <div class="stub__row"><span class="stub__label">Availability</span><span class="badge ${badgeClass}">${badgeText}</span></div>
+    <div class="stub__row">
+      <span class="stub__label">Product</span>
+      <span class="stub__value">${product.name}</span>
+    </div>
+
+    <div class="stub__row">
+      <span class="stub__label">SKU</span>
+      <span class="stub__value">${product.sku}</span>
+    </div>
+
+    <div class="stub__row">
+      <span class="stub__label">Availability</span>
+      <span class="badge ${badgeClass}">
+        ${badgeText}
+      </span>
+    </div>
+
+    <div class="stub__row">
+      <span class="stub__label">Update</span>
+      <span class="stub__value">${message}</span>
+    </div>
   `;
 }
 
