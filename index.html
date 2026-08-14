@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Northstar Support Desk</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar__brand">
+      <span class="topbar__mark">N</span>
+      <span class="topbar__name">Northstar Support Desk</span>
+    </div>
+    <p class="topbar__tag">Self-serve answers for order status and stock &mdash; before a ticket is ever opened.</p>
+  </header>
+
+  <main class="counter">
+
+    <!-- ORDER STATUS LOOKUP -->
+    <section class="module" id="order-module" aria-labelledby="order-heading">
+      <div class="module__head">
+        <span class="module__eyebrow">Lookup 01</span>
+        <h2 id="order-heading">Where's my order?</h2>
+      </div>
+
+      <form class="lookup-form" id="order-form" novalidate>
+        <label class="field">
+          <span class="field__label">Order number</span>
+          <input type="text" id="order-id" placeholder="e.g. NS-10456" autocomplete="off" />
+        </label>
+        <button type="submit" class="btn">Check status</button>
+      </form>
+      <p class="field__error" id="order-error" hidden>Enter an order number to continue.</p>
+
+      <div class="stub" id="order-result" hidden></div>
+    </section>
+
+    <!-- STOCK AVAILABILITY LOOKUP -->
+    <section class="module" id="stock-module" aria-labelledby="stock-heading">
+      <div class="module__head">
+        <span class="module__eyebrow">Lookup 02</span>
+        <h2 id="stock-heading">Is this back in stock?</h2>
+      </div>
+
+      <form class="lookup-form" id="stock-form" novalidate>
+        <label class="field">
+          <span class="field__label">Product name or SKU</span>
+          <input type="text" id="product-id" placeholder="e.g. Trailhead Backpack or SKU-2231" autocomplete="off" />
+        </label>
+        <button type="submit" class="btn">Check availability</button>
+      </form>
+      <p class="field__error" id="stock-error" hidden>Enter a product name or SKU to continue.</p>
+
+      <div class="stub" id="stock-result" hidden></div>
+    </section>
+
+  </main>
+
+  <footer class="footnote">
+    Can't find what you need? <a href="#" id="escalate-link">Contact a support agent</a> and we'll pick up from here.
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
