@@ -31,8 +31,17 @@ async function loadData() {
 // --- Order status ---------------------------------------------------
 
 function findOrder(query) {
-  const q = query.trim().toLowerCase();
-  return orders.find(o => o.id.toLowerCase() === q);
+  const normalizedQuery = query.trim().toLowerCase();
+
+  if (!normalizedQuery) {
+    return null;
+  }
+
+  return orders.find(order => {
+    const orderId = order.id.trim().toLowerCase();
+
+    return orderId === normalizedQuery;
+  }) || null;
 }
 
 function renderOrderResult(order) {
@@ -40,17 +49,55 @@ function renderOrderResult(order) {
   el.hidden = false;
 
   if (!order) {
-    el.innerHTML = `<p class="stub--not-found">No order found with that number. Double check it and try again, or contact an agent.</p>`;
+    el.innerHTML = `
+      <p class="stub--not-found">
+        No order found with that number.
+        Double check the order ID and try again.
+      </p>
+    `;
     return;
   }
 
-  const isShipped = order.status === 'shipped' || order.status === 'delivered';
-  const badgeClass = isShipped ? 'badge--ok' : 'badge--wait';
+  const statusMessages = {
+    processing: 'Your order is being prepared.',
+    shipped: 'Your order has been shipped.',
+    delivered: 'Your order has been delivered.'
+  };
+
+  const status = order.status.toLowerCase();
+
+  const message =
+    statusMessages[status] || 'Your order status is currently unavailable.';
+
+  const isCompleted =
+    status === 'shipped' || status === 'delivered';
+
+  const badgeClass = isCompleted
+    ? 'badge--ok'
+    : 'badge--wait';
 
   el.innerHTML = `
-    <div class="stub__row"><span class="stub__label">Order</span><span class="stub__value">${order.id}</span></div>
-    <div class="stub__row"><span class="stub__label">Status</span><span class="badge ${badgeClass}">${order.status}</span></div>
-    <div class="stub__row"><span class="stub__label">Est. delivery</span><span class="stub__value">${order.estimatedDelivery}</span></div>
+    <div class="stub__row">
+      <span class="stub__label">Order</span>
+      <span class="stub__value">${order.id}</span>
+    </div>
+
+    <div class="stub__row">
+      <span class="stub__label">Status</span>
+      <span class="badge ${badgeClass}">
+        ${order.status}
+      </span>
+    </div>
+
+    <div class="stub__row">
+      <span class="stub__label">Update</span>
+      <span class="stub__value">${message}</span>
+    </div>
+
+    <div class="stub__row">
+      <span class="stub__label">Est. delivery</span>
+      <span class="stub__value">${order.estimatedDelivery}</span>
+    </div>
   `;
 }
 
