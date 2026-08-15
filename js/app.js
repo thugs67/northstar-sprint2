@@ -15,6 +15,16 @@
 let orders = [];
 let products = [];
 
+// Small helpers
+function escapeHtml(input) {
+  return String(input == null ? '' : input)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 async function loadData() {
   try {
     const [ordersRes, productsRes] = await Promise.all([
@@ -31,14 +41,14 @@ async function loadData() {
 // --- Order status ---------------------------------------------------
 
 function findOrder(query) {
-  const normalizedQuery = query.trim().toLowerCase();
+  const normalizedQuery = String(query || '').trim().toLowerCase();
 
   if (!normalizedQuery) {
     return null;
   }
 
   return orders.find(order => {
-    const orderId = order.id.trim().toLowerCase();
+    const orderId = String(order && order.id || '').trim().toLowerCase();
 
     return orderId === normalizedQuery;
   }) || null;
@@ -47,6 +57,8 @@ function findOrder(query) {
 function renderOrderResult(order) {
   const el = document.getElementById('order-result');
   el.hidden = false;
+  el.setAttribute('role', 'status');
+  el.setAttribute('aria-live', 'polite');
 
   if (!order) {
     el.innerHTML = `
@@ -64,7 +76,7 @@ function renderOrderResult(order) {
     delivered: 'Your order has been delivered.'
   };
 
-  const status = order.status.toLowerCase();
+  const status = String(order.status || '').toLowerCase();
 
   const message =
     statusMessages[status] || 'Your order status is currently unavailable.';
@@ -79,24 +91,24 @@ function renderOrderResult(order) {
   el.innerHTML = `
     <div class="stub__row">
       <span class="stub__label">Order</span>
-      <span class="stub__value">${order.id}</span>
+      <span class="stub__value">${escapeHtml(order.id)}</span>
     </div>
 
     <div class="stub__row">
       <span class="stub__label">Status</span>
       <span class="badge ${badgeClass}">
-        ${order.status}
+        ${escapeHtml(order.status)}
       </span>
     </div>
 
     <div class="stub__row">
       <span class="stub__label">Update</span>
-      <span class="stub__value">${message}</span>
+      <span class="stub__value">${escapeHtml(message)}</span>
     </div>
 
     <div class="stub__row">
       <span class="stub__label">Est. delivery</span>
-      <span class="stub__value">${order.estimatedDelivery}</span>
+      <span class="stub__value">${escapeHtml(order.estimatedDelivery)}</span>
     </div>
   `;
 }
@@ -104,15 +116,15 @@ function renderOrderResult(order) {
 // --- Stock availability ----------------------------------------------
 
 function findProduct(query) {
-  const normalizedQuery = query.trim().toLowerCase();
+  const normalizedQuery = String(query || '').trim().toLowerCase();
 
   if (!normalizedQuery) {
     return null;
   }
 
   return products.find(product => {
-    const sku = product.sku.trim().toLowerCase();
-    const name = product.name.trim().toLowerCase();
+    const sku = String(product && product.sku || '').trim().toLowerCase();
+    const name = String(product && product.name || '').trim().toLowerCase();
 
     return sku === normalizedQuery || name.includes(normalizedQuery);
   }) || null;
@@ -121,6 +133,8 @@ function findProduct(query) {
 function renderStockResult(product) {
   const el = document.getElementById('stock-result');
   el.hidden = false;
+  el.setAttribute('role', 'status');
+  el.setAttribute('aria-live', 'polite');
 
   if (!product) {
     el.innerHTML = `
@@ -132,14 +146,14 @@ function renderStockResult(product) {
     return;
   }
 
-  const inStock = product.stock > 0;
+  const inStock = Number(product.stock) > 0;
 
   const badgeClass = inStock
     ? 'badge--ok'
     : 'badge--wait';
 
   const badgeText = inStock
-    ? `In stock (${product.stock} available)`
+    ? `In stock (${escapeHtml(product.stock)} available)`
     : 'Out of stock';
 
   const message = inStock
@@ -149,24 +163,24 @@ function renderStockResult(product) {
   el.innerHTML = `
     <div class="stub__row">
       <span class="stub__label">Product</span>
-      <span class="stub__value">${product.name}</span>
+      <span class="stub__value">${escapeHtml(product.name)}</span>
     </div>
 
     <div class="stub__row">
       <span class="stub__label">SKU</span>
-      <span class="stub__value">${product.sku}</span>
+      <span class="stub__value">${escapeHtml(product.sku)}</span>
     </div>
 
     <div class="stub__row">
       <span class="stub__label">Availability</span>
       <span class="badge ${badgeClass}">
-        ${badgeText}
+        ${escapeHtml(badgeText)}
       </span>
     </div>
 
     <div class="stub__row">
       <span class="stub__label">Update</span>
-      <span class="stub__value">${message}</span>
+      <span class="stub__value">${escapeHtml(message)}</span>
     </div>
   `;
 }
