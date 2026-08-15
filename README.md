@@ -1,5 +1,5 @@
 markdown
-# Northstar Support Desk
+# Northstar Support Desk - Group 89
 
 A self-serve dashboard MVP for Northstar Retail Co. Customers (or support agents)
 check **order status** and **stock availability** without opening a ticket.
@@ -50,7 +50,7 @@ Examples:
 | Setup project structure and dev environment | John |
 | Build order status feature | Caroline |
 | Build stock availability feature | Caroline |
-| Implement validation and error handling | _unassigned_ |
+| Implement validation and error handling | Paula |
 | Integrate and test both workflows | Everyone |
 | Prepare 1-page readiness note | Salim |
 | Prepare final delivery and audit evidence | Salim |
