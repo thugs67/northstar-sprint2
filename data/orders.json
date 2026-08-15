@@ -1,5 +1,42 @@
 [
-  { "id": "NS-10456", "status": "shipped", "estimatedDelivery": "Aug 18, 2026" },
-  { "id": "NS-10457", "status": "processing", "estimatedDelivery": "Aug 22, 2026" },
-  { "id": "NS-10458", "status": "delivered", "estimatedDelivery": "Aug 10, 2026" }
+  {
+    "id": "NS-10456",
+    "productSku": "SKU-IP17-001",
+    "productName": "iPhone 17",
+    "status": "shipped",
+    "orderDate": "Aug 12, 2026",
+    "estimatedDelivery": "Aug 18, 2026"
+  },
+  {
+    "id": "NS-10457",
+    "productSku": "SKU-LP-001",
+    "productName": "Laptops",
+    "status": "processing",
+    "orderDate": "Aug 14, 2026",
+    "estimatedDelivery": "Aug 22, 2026"
+  },
+  {
+    "id": "NS-10458",
+    "productSku": "SKU-BP-001",
+    "productName": "Laptop Backpack",
+    "status": "delivered",
+    "orderDate": "Aug 5, 2026",
+    "estimatedDelivery": "Aug 10, 2026"
+  },
+  {
+    "id": "NS-10459",
+    "productSku": "SKU-IP17-001",
+    "productName": "iPhone 17",
+    "status": "delivered",
+    "orderDate": "Aug 1, 2026",
+    "estimatedDelivery": "Aug 8, 2026"
+  },
+  {
+    "id": "NS-10460",
+    "productSku": "SKU-BP-001",
+    "productName": "Laptop Backpack",
+    "status": "processing",
+    "orderDate": "Aug 14, 2026",
+    "estimatedDelivery": "Aug 21, 2026"
+  }
 ]

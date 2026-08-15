@@ -1,5 +1,23 @@
 [
-  { "sku": "SKU-2231", "name": "Trailhead Backpack", "stock": 14 },
-  { "sku": "SKU-2232", "name": "Trailhead Backpack - Small", "stock": 0 },
-  { "sku": "SKU-3390", "name": "Summit Water Bottle", "stock": 42 }
+  {
+    "sku": "SKU-IP17-001",
+    "name": "iPhone 17",
+    "stock": 25,
+    "price": 999,
+    "variants": ["Black", "Silver", "Gold"]
+  },
+  {
+    "sku": "SKU-LP-001",
+    "name": "Laptops",
+    "stock": 12,
+    "price": 1299,
+    "variants": ["13-inch", "15-inch"]
+  },
+  {
+    "sku": "SKU-BP-001",
+    "name": "Laptop Backpack",
+    "stock": 45,
+    "price": 79,
+    "variants": ["Black", "Gray", "Navy"]
+  }
 ]
