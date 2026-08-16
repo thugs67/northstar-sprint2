@@ -1,56 +1,83 @@
-markdown
-# Northstar Support Desk
+# Northstar Support Desk - Group 89
 
-A self-serve dashboard MVP for Northstar Retail Co. Customers (or support agents)
-check **order status** and **stock availability** without opening a ticket.
+A self-serve dashboard MVP for Northstar Retail Co. Customers or support
+agents can check **order status** and **stock availability** without opening
+a support ticket.
 
-## Project structure
+## MVP Scope
 
-northstar-dashboard/
-├── index.html # Dashboard shell (both lookup modules)
-├── css/
-│ └── styles.css # Design tokens + layout
-├── js/
-│ └── app.js # Form handling + data lookup + rendering
-├── data/
-│ ├── orders.json # Sample order records (placeholder — Alex to expand)
-│ └── products.json # Sample product/stock records (placeholder — Alex to expand)
-└── README.md
+The MVP supports two customer support workflows:
 
+1. **Order Status** — customers can look up an order and view its status and estimated delivery information.
+2. **Stock Availability** — customers can search for a product by name or SKU and view its current stock availability.
 
-No build step, no dependencies. Open `index.html` in a browser, or run a
-local server:
+## Running the Project
 
-python3 -m http.server 8000
+No build step or external dependencies are required.
 
+Open `index.html` directly in a browser, or run a local server:
 
-then visit `http://localhost:8000`.
+    python3 -m http.server 8000
 
-## Commit / edit convention
+Then visit:
 
-Every commit must follow:
+    http://localhost:8000
 
-<type>: <what changed> - <why it matters>
+## Project Structure
 
+    northstar-sprint2/
+    ├── index.html
+    ├── css/
+    │   └── styles.css
+    ├── js/
+    │   └── app.js
+    ├── data/
+    │   ├── orders.json
+    │   └── products.json
+    └── docs/
+        ├── dashboard-requirements.md
+        ├── go-live-readiness.md
+        └── team-charter.md
+
+## Development Conventions
+
+### Branch Naming
+
+Use:
+
+    <type>/<short-description>
 
 Examples:
-- `feat: add order status lookup form - covers ticket type 1 requirement`
-- `fix: handle empty SKU search - prevents blank result card`
-- `docs: add setup instructions - onboards new teammates faster`
 
-`wip` / `updates` / similar are **not** acceptable commit messages.
+- `feature/order-stock`
+- `fix/input-validation`
+- `docs/go-live-readiness`
 
-## Task board reference
+### Commit Naming
+
+Use:
+
+    <type>: <what changed> - <why it matters>
+
+Examples:
+
+- `feat: add order status lookup - helps customers track orders`
+- `fix: handle empty SKU search - prevents blank result cards`
+- `docs: add team charter - documents team working agreement`
+
+`wip`, `updates`, and similar non-descriptive commit messages are not acceptable.
+
+## Task Ownership
 
 | Task | Owner |
 |---|---|
 | Dashboard requirements | Paula / Salim |
 | Dashboard design | John |
 | Sample order and product data | Alex |
-| Setup project structure and dev environment | John |
+| Setup project structure and development environment | John |
 | Build order status feature | Caroline |
 | Build stock availability feature | Caroline |
-| Implement validation and error handling | _unassigned_ |
+| Implement validation and error handling | Paula |
 | Integrate and test both workflows | Everyone |
 | Prepare 1-page readiness note | Salim |
 | Prepare final delivery and audit evidence | Salim |
@@ -67,4 +94,3 @@ Examples:
 - Result rendering uses `.badge--ok` (teal) for resolved/in-stock and
   `.badge--wait` (clay) for pending/out-of-stock — reuse these classes for
   consistency.
-  

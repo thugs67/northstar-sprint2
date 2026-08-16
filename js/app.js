@@ -15,6 +15,16 @@
 let orders = [];
 let products = [];
 
+// Small helpers
+function escapeHtml(input) {
+  return String(input == null ? '' : input)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 async function loadData() {
   try {
     const [ordersRes, productsRes] = await Promise.all([
@@ -31,25 +41,55 @@ async function loadData() {
 // --- Order status ---------------------------------------------------
 
 function findOrder(query) {
-  const q = query.trim().toLowerCase();
-  return orders.find(o => o.id.toLowerCase() === q);
+  const normalizedQuery = String(query || '').trim().toLowerCase();
+
+  if (!normalizedQuery) {
+    return null;
+  }
+
+  return orders.find(order => {
+    const orderId = String(order && order.id || '').trim().toLowerCase();
+
+    return orderId === normalizedQuery;
+  }) || null;
 }
 
 function renderOrderResult(order) {
   const el = document.getElementById('order-result');
   el.hidden = false;
+  el.setAttribute('role', 'status');
+  el.setAttribute('aria-live', 'polite');
 
   if (!order) {
-    el.innerHTML = `<p class="stub--not-found">No order found with that number. Double check it and try again, or contact an agent.</p>`;
+    el.innerHTML = `
+      <p class="stub--not-found">
+        No order found with that number.
+        Double check the order ID and try again.
+      </p>
+    `;
     return;
   }
 
-  const isShipped = order.status === 'shipped' || order.status === 'delivered';
-  const badgeClass = isShipped ? 'badge--ok' : 'badge--wait';
+  const statusMessages = {
+    processing: 'Your order is being prepared.',
+    shipped: 'Your order has been shipped.',
+    delivered: 'Your order has been delivered.'
+  };
+
+  const status = String(order.status || '').toLowerCase();
+
+  const message =
+    statusMessages[status] || 'Your order status is currently unavailable.';
+
+  const isCompleted =
+    status === 'shipped' || status === 'delivered';
+
+  const badgeClass = isCompleted
+    ? 'badge--ok'
+    : 'badge--wait';
 
   el.innerHTML = `
     <div class="stub__row"><span class="stub__label">Order</span><span class="stub__value">${order.id}</span></div>
-    <div class="stub__row"><span class="stub__label">Item</span><span class="stub__value">${order.item}</span></div>
     <div class="stub__row"><span class="stub__label">Status</span><span class="badge ${badgeClass}">${order.status}</span></div>
     <div class="stub__row"><span class="stub__label">Est. delivery</span><span class="stub__value">${order.estimatedDelivery}</span></div>
   `;
@@ -58,29 +98,72 @@ function renderOrderResult(order) {
 // --- Stock availability ----------------------------------------------
 
 function findProduct(query) {
-  const q = query.trim().toLowerCase();
-  return products.find(
-    p => p.name.toLowerCase().includes(q) || p.sku.toLowerCase() === q
-  );
+  const normalizedQuery = String(query || '').trim().toLowerCase();
+
+  if (!normalizedQuery) {
+    return null;
+  }
+
+  return products.find(product => {
+    const sku = String(product && product.sku || '').trim().toLowerCase();
+    const name = String(product && product.name || '').trim().toLowerCase();
+
+    return sku === normalizedQuery || name.includes(normalizedQuery);
+  }) || null;
 }
 
 function renderStockResult(product) {
   const el = document.getElementById('stock-result');
   el.hidden = false;
+  el.setAttribute('role', 'status');
+  el.setAttribute('aria-live', 'polite');
 
   if (!product) {
-    el.innerHTML = `<p class="stub--not-found">No product matched that name or SKU. Try the exact SKU, or contact an agent.</p>`;
+    el.innerHTML = `
+      <p class="stub--not-found">
+        No product matched that name or SKU.
+        Try searching by product name or exact SKU.
+      </p>
+    `;
     return;
   }
 
-  const inStock = product.stock > 0;
-  const badgeClass = inStock ? 'badge--ok' : 'badge--wait';
-  const badgeText = inStock ? `In stock (${product.stock})` : 'Out of stock';
+  const inStock = Number(product.stock) > 0;
+
+  const badgeClass = inStock
+    ? 'badge--ok'
+    : 'badge--wait';
+
+  const badgeText = inStock
+    ? `In stock (${escapeHtml(product.stock)} available)`
+    : 'Out of stock';
+
+  const message = inStock
+    ? 'This product is currently available.'
+    : 'This product is currently unavailable.';
 
   el.innerHTML = `
-    <div class="stub__row"><span class="stub__label">Product</span><span class="stub__value">${product.name}</span></div>
-    <div class="stub__row"><span class="stub__label">SKU</span><span class="stub__value">${product.sku}</span></div>
-    <div class="stub__row"><span class="stub__label">Availability</span><span class="badge ${badgeClass}">${badgeText}</span></div>
+    <div class="stub__row">
+      <span class="stub__label">Product</span>
+      <span class="stub__value">${escapeHtml(product.name)}</span>
+    </div>
+
+    <div class="stub__row">
+      <span class="stub__label">SKU</span>
+      <span class="stub__value">${escapeHtml(product.sku)}</span>
+    </div>
+
+    <div class="stub__row">
+      <span class="stub__label">Availability</span>
+      <span class="badge ${badgeClass}">
+        ${escapeHtml(badgeText)}
+      </span>
+    </div>
+
+    <div class="stub__row">
+      <span class="stub__label">Update</span>
+      <span class="stub__value">${escapeHtml(message)}</span>
+    </div>
   `;
 }
 

@@ -1,7 +1,5 @@
 [
-  { "sku": "SKU-1001", "name": "iPhone 17", "stock": 8 },
-  { "sku": "SKU-1002", "name": "Laptop", "stock": 5 },
-  { "sku": "SKU-2001", "name": "Laptop Backpack - Small", "stock": 20 },
-  { "sku": "SKU-2002", "name": "Laptop Backpack - Medium", "stock": 0 },
-  { "sku": "SKU-2003", "name": "Laptop Backpack - Large", "stock": 12 }
+  { "sku": "SKU-2231", "name": "Trailhead Backpack", "stock": 14 },
+  { "sku": "SKU-2232", "name": "Trailhead Backpack - Small", "stock": 0 },
+  { "sku": "SKU-3390", "name": "Summit Water Bottle", "stock": 42 }
 ]
