@@ -107,3 +107,14 @@ Deliver a demoable Northstar Support Desk MVP that reduces manual support handli
 - Stock Availability
 
 The MVP must be supported by a go-live readiness note and a traceable collaborative audit trail.
+## 10. Sign-Off
+
+By signing below, each team member confirms that they have reviewed and agreed to this Team Charter, including the team's roles, communication channels, decision-making rules, escalation process, board working rules, Definition of Done, and audit requirements.
+
+| Team Member | Role | Signature | Date |
+|---|---|---|---|
+| Salim Panyako | Team Lead / Documentation & Delivery | ____________________ | ____________________ |
+| John Kamau | Project Setup / Dashboard Design | ____________________ | ____________________ |
+| Alex | Sample Order & Product Data | ____________________ | ____________________ |
+| Caroline | Order Status & Stock Availability Features | ____________________ | ____________________ |
+| Paula Ndirangu | Validation & Error Handling | ____________________ | ____________________ |
