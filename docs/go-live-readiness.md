@@ -3,25 +3,28 @@
 **Project:** Northstar Support Desk MVP  
 **Team:** Group 89  
 **Scope:** Order Status and Stock Availability  
-**Status:** In Development
+**Status:** Integration Testing Complete for Current MVP Workflows
 
 ## 1. What Works
 
 ### Order Status
-- [ ] Customer can enter an Order ID.
-- [ ] A valid Order ID returns the order status.
-- [ ] Estimated delivery information is displayed.
-- [ ] An invalid or unknown Order ID produces clear feedback.
+
+- [x] Customer can enter an Order ID.
+- [x] A valid Order ID returns the order status.
+- [x] Estimated delivery information is displayed.
+- [x] An invalid or unknown Order ID produces clear feedback.
 
 ### Stock Availability
-- [ ] Customer can search using a product name or SKU.
-- [ ] A valid product lookup returns product information.
-- [ ] Stock availability is clearly displayed.
-- [ ] An invalid or unknown product produces clear feedback.
+
+- [x] Customer can search using a product name or SKU.
+- [x] A valid product lookup returns product information.
+- [x] Stock availability is clearly displayed.
+- [x] An invalid or unknown product produces clear feedback.
 
 ### Validation and Error Handling
-- [ ] Empty inputs are handled appropriately.
-- [ ] Invalid lookups provide clear feedback.
+
+- [x] Empty inputs are handled appropriately.
+- [x] Invalid lookups provide clear feedback.
 - [ ] Data-loading failures are handled appropriately.
 
 ## 2. Known Issues / Limitations
