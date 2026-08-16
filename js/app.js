@@ -49,6 +49,7 @@ function renderOrderResult(order) {
 
   el.innerHTML = `
     <div class="stub__row"><span class="stub__label">Order</span><span class="stub__value">${order.id}</span></div>
+    <div class="stub__row"><span class="stub__label">Item</span><span class="stub__value">${order.item}</span></div>
     <div class="stub__row"><span class="stub__label">Status</span><span class="badge ${badgeClass}">${order.status}</span></div>
     <div class="stub__row"><span class="stub__label">Est. delivery</span><span class="stub__value">${order.estimatedDelivery}</span></div>
   `;

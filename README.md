@@ -67,3 +67,4 @@ Examples:
 - Result rendering uses `.badge--ok` (teal) for resolved/in-stock and
   `.badge--wait` (clay) for pending/out-of-stock — reuse these classes for
   consistency.
+  

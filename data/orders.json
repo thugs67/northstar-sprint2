@@ -1,5 +1,5 @@
 [
-  { "id": "NS-10456", "status": "shipped", "estimatedDelivery": "Aug 18, 2026" },
-  { "id": "NS-10457", "status": "processing", "estimatedDelivery": "Aug 22, 2026" },
-  { "id": "NS-10458", "status": "delivered", "estimatedDelivery": "Aug 10, 2026" }
+  { "id": "NS-10456", "item": "iPhone 17", "status": "shipped", "estimatedDelivery": "Aug 18, 2026" },
+  { "id": "NS-10457", "item": "Laptop", "status": "processing", "estimatedDelivery": "Aug 22, 2026" },
+  { "id": "NS-10458", "item": "Laptop Backpack - Medium", "status": "delivered", "estimatedDelivery": "Aug 10, 2026" }
 ]
